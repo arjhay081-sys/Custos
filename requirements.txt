@@ -1,0 +1,7 @@
+discord.py
+flask
+pytz
+python-dotenv
+PyNaCl
+requests
+httpx
