@@ -21,7 +21,7 @@ class AIModeration:
         
         # Configure Gemini - using old package that works
         genai.configure(api_key=self.gemini_api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash-latest')
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
         self.enabled = True
         
         # Server-specific AI settings
