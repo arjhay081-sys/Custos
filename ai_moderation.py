@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
-from google import genai
-from google.genai import types
+import google.generativeai as genai
 import os
 import json
 import logging
@@ -20,9 +19,9 @@ class AIModeration:
             self.enabled = False
             return
         
-        # Configure Gemini with new API
-        self.client = genai.Client(api_key=self.gemini_api_key)
-        self.model_name = 'gemini-1.5-flash'  # Stable model that works with new API
+        # Configure Gemini - using old package that works
+        genai.configure(api_key=self.gemini_api_key)
+        self.model = genai.GenerativeModel('gemini-1.5-flash-latest')
         self.enabled = True
         
         # Server-specific AI settings
@@ -156,11 +155,10 @@ Respond ONLY with valid JSON in this exact format (no markdown, no extra text):
             # FIX #2: Initialize response_text to avoid undefined error
             response_text = ""
             
-            # Call Gemini API with new client
+            # Call Gemini API
             response = await asyncio.to_thread(
-                self.client.models.generate_content,
-                model=self.model_name,
-                contents=prompt
+                self.model.generate_content,
+                prompt
             )
             
             # Parse response
