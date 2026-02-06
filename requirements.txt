@@ -5,3 +5,5 @@ python-dotenv
 PyNaCl
 requests
 httpx
+google-generativeai
+aiohttp
